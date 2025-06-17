@@ -4,14 +4,33 @@ query getAllUsers{
     firstName
     lastName
     email
-  }
-  quotes {
-    name
-    by
+    quotes{
+      name
+      by
+    }
   }
 }
+
 ----------------------
 query getAllQuotes{
 quotes{
   name
+  by
 }}
+---------------------
+query getSingleUser{
+  user(id:"123"){
+    firstName
+    email
+    quotes{
+      name
+    }
+  }
+}
+-----------------------
+query getUserQuote{
+  userquote(by:"123"){
+    name
+    by
+  }
+}
