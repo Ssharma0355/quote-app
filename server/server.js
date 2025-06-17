@@ -11,14 +11,15 @@ const typeDefs = gql`
     quotes: [Quote]
   }
   type User {
-    id: ID
+    id: ID!
     firstName: String
     lastName: String
     email: String
+    quotes: [Quote]
   }
   type Quote {
-    name:String
-    by:ID
+    name: String
+    by: ID
   }
 `;
 
@@ -29,6 +30,10 @@ const resolvers = {
     users: () => users,
     quotes: () => quotes,
   },
+  User:{
+    quotes:(ur)=>quotes.filter(quote=>quote.by == ur.id)
+
+  }
 };
 
 const server = new ApolloServer({
