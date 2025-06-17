@@ -8,7 +8,9 @@ import { quotes,users } from "./fakeDb.js";
 const typeDefs = gql`
   type Query {
     users: [User]
+    user(id:ID!):User
     quotes: [Quote]
+    userquote(by:ID!):[Quote]
   }
   type User {
     id: ID!
@@ -28,12 +30,13 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     users: () => users,
+    user: (_, args) => users.find((user) => user.id == args.id),
     quotes: () => quotes,
+    userquote:(_,{by})=>quotes.filter((quote)=> quote.by == by)
   },
-  User:{
-    quotes:(ur)=>quotes.filter(quote=>quote.by == ur.id)
-
-  }
+  User: {
+    quotes: (ur) => quotes.filter((quote) => quote.by == ur.id), // quotes:(parent which is user) = >
+  },
 };
 
 const server = new ApolloServer({
