@@ -1,1 +1,1 @@
-# quote-app
+# quote-app-mern
